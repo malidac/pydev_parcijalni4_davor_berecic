@@ -1,0 +1,44 @@
+{% extends 'base/base.html' %}
+
+{% block page_content %}
+    <div>
+        <a href="{% url 'tickets:ticket_create' %}">
+            Add new
+        </a>
+    </div>
+    <table class="table table-hover">
+        <thead>
+            <tr>
+            <th scope="col">Title</th>
+            <th scope="col">Description</th>
+            <th scope="col">Status</th>
+            <th scope="col">Created at</th>
+            <th scope="col">Reported By</th>
+            <th scope="col">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for ticket in ticket_list %}
+                <tr>
+                    <td>
+                        <a href="{% url 'tickets:ticket_details' ticket.id %}">
+                            {{ ticket.title }}
+                        </a>
+                    </td>
+                    <td>{{ ticket.description }}</td>
+                    <td>{{ ticket.status }}</td>
+                    <td>{{ ticket.created_at }}</td>
+                    <td>{{ ticket.reported_by.first_name }} {{ ticket.reported_by.last_name }}</td>
+                    <td>
+                        <a href="{% url 'tickets:ticket_update' ticket.id %}">
+                            Update
+                        </a>
+                        <a href="{% url 'tickets:ticket_delete' ticket.id %}">
+                            Delete
+                        </a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock page_content %}

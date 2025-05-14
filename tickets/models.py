@@ -35,10 +35,20 @@ class Ticket(models.Model):
                                     blank=True)
 
     created_at = models.DateTimeField(default=timezone.now)
-    updated_at = models.DateTimeField()
+    updated_at = models.DateTimeField(null=True, blank=True)
 
     class Meta:
         ordering = ['-created_at']
 
     def __str__(self):
         return f'{self.title} - ({self.status})'
+
+
+class Comment(models.Model):
+
+    title = ''
+    body = ''
+
+    ticket_id = models.ForeignKey(Ticket,
+                                  on_delete=models.CASCADE,
+                                  related_name='comments')
