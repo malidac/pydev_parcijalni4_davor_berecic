@@ -1,10 +1,13 @@
-{% extends 'base.html' %}
+{% extends "admin/base_site.html" %}
+{% load static %}
 
-{% block page_content %}
-<h2>Create New Customer</h2>
-<form method="post">
+{% block content %}
+  <h1>{% if form.instance.pk %}Edit{% else %}Create New{% endif %} Customer</h1>
+  <form method="post" novalidate>
     {% csrf_token %}
-    {{ form.as_p }}
-    <button class="btn btn-primary" type="submit">Save</button>
-</form>
+    <table class="form-table">
+      {{ form.as_table }}
+    </table>
+    <input type="submit" value="Save" class="default" />
+  </form>
 {% endblock %}
